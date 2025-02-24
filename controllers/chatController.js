@@ -1,9 +1,7 @@
 import User from "../models/userModel.js";
 
 
-// export const getAvatars=async(req,res)=>{
-   
-// }
+
 
 
 export const setAvatar=async(req,res)=>{
