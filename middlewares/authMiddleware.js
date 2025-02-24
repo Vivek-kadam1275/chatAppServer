@@ -7,9 +7,9 @@ export const auth = async (req, res, next) => {
         const token = req.cookies.loginCookie;
         
 
-        console.log("into auth middleware")
+        // console.log("into auth middleware")
         // console.log("body" ,req.body.token);
-        console.log("cookie",token);
+        // console.log("cookie",token);
         // console.log("header",req.header("Authorization"));
 
         //check whether token exist or not

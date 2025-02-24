@@ -39,7 +39,7 @@ export const setAvatar=async(req,res)=>{
 
 export const getAllUsers=async(req,res)=>{
     try {
-        console.log("into getAllUsers");
+        // console.log("into getAllUsers");
         const userId=req.body.user.id;
         // const currentUser=req.body.user;
 

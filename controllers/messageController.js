@@ -2,7 +2,7 @@ import Message from "../models/messageModel.js";
 
 export const addMsg=async(req,res)=>{
     try {
-        console.log("into addMsg controller...");
+        // console.log("into addMsg controller...");
         // console.log(req.body.user);
         const userId=req.body.user.id;
         const {msg,to}=req.body;
@@ -14,7 +14,8 @@ export const addMsg=async(req,res)=>{
         // console.log(sendMsg);
         res.status(200).json({
             success:true,
-            message:"message added successfully..."
+            message:"message added successfully...",
+            data:sendMsg
         })
         
 
@@ -41,6 +42,8 @@ export const getMsgs=async(req,res)=>{
             return {
               senderBoolean: userId===msg.sender.toString(),
               message: msg.message.text,
+              sender: msg.sender,
+              users:msg.users,
             };
           });
         
