@@ -24,12 +24,13 @@ const io = new Server(server, {
 });
 io.on("connection", (socket) => {
     console.log("user(socket) connected to io");
-    console.log(socket.id);
+    // console.log(socket.id);
 
     socket.on("setup", (user) => {
         // console.log(user._id);
         socket.join(user._id);
         socket.emit("connected");
+        // console.log(user._id);
 
     })
     socket.on("join-chat", (room) => {

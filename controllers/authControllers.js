@@ -71,7 +71,7 @@ export const login = async (req, res) => {
                 // create jwt token (payload-data,secretkey,optional)
                 console.log("creating jwt token")
                 const token = jwt.sign(payload, "secretVivek", {
-                    expiresIn: "2h"
+                    expiresIn: "24h"
                 });
                 // console.log(existUser)
 
@@ -87,7 +87,7 @@ export const login = async (req, res) => {
                 // create cookie
 
                 const options = {
-                    expires: new Date(Date.now() + 1 * 2 * 60 * 60 * 1000),
+                    expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
                     httpOnly: true,
                     secure: true,  // ✅ Required for HTTPS
                     sameSite: 'none'  // ✅ Required for cross-origin cookies
