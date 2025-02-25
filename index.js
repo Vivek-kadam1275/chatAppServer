@@ -37,12 +37,21 @@ io.on("connection", (socket) => {
         socket.join(room);
         console.log("user joined room", room);
     });
+
+    socket.on("typing", (room) => 
+        {
+            // console.log("typing",room)
+            socket.to(room).emit("typing");
+        }
+        );
+    socket.on("stop typing", (room) => socket.to(room).emit("stop typing"));
+
     socket.on("send-msg", (data) => {
         // console.log(data);
-       
-  
+
+
         socket.to(data.to).emit("msg-recieve", data.msg);
-   
+
 
     });
 })
