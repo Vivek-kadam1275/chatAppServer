@@ -40,13 +40,14 @@ io.on("connection", (socket) => {
     // });
 
     socket.on("typing", (data) => {
-        // console.log(data);
+        
+        // console.log("started");
         socket.to(data.currentChat._id).emit("typing", data.currentUser._id);
     }
     );
-    socket.on("stop typing", (data) => {
-        // console.log(data);
-        socket.to(data.currentChat._id).emit("stop typing", data.currentUser._id);
+    socket.on("stop-typing", (data) => {
+        // console.log("stopped");
+        socket.to(data.currentChat._id).emit("stop-typing", data.currentUser._id);
     }
     );
 
