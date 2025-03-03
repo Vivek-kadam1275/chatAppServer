@@ -14,6 +14,7 @@ const allowedOrigins = ["http://localhost:5173"]
 
 import { createServer } from "http";
 import { Server } from "socket.io";
+
 const server = new createServer(app);
 const io = new Server(server, {
     // pingTimeout: 60000,// automaticallly turnoff after 60s when not in use
@@ -27,32 +28,38 @@ io.on("connection", (socket) => {
     // console.log(socket.id);
 
     socket.on("setup", (user) => {
-        // console.log(user._id);
+        console.log("user joined to its personal room ", user._id);
         socket.join(user._id);
         socket.emit("connected");
-        // console.log(user._id);
 
     })
-    socket.on("join-chat", (room) => {
-        socket.join(room);
-        console.log("user joined room", room);
-    });
 
-    socket.on("typing", (room) => 
-        {
-            // console.log("typing",room)
-            socket.to(room).emit("typing");
-        }
-        );
-    socket.on("stop typing", (room) => socket.to(room).emit("stop typing"));
+    // socket.on("join-chat", (room) => {
+    //     socket.join(room);
+    //     console.log("user joined room of reciver chat", room);
+    // });
+
+    socket.on("typing", (data) => {
+        // console.log(data);
+        socket.to(data.currentChat._id).emit("typing", data.currentUser._id);
+    }
+    );
+    socket.on("stop typing", (data) => {
+        // console.log(data);
+        socket.to(data.currentChat._id).emit("stop typing", data.currentUser._id);
+    }
+    );
 
     socket.on("send-msg", (data) => {
         // console.log(data);
+        // console.log(`📤 Sending message from ${data.from} to ${data.to}:`, data);
+        socket.to(data.to).emit("msg-recieve", data);
 
 
-        socket.to(data.to).emit("msg-recieve", data.msg);
+    });
 
-
+    socket.on("disconnect", () => {
+        console.log("User disconnected:", socket.id);
     });
 })
 
@@ -70,7 +77,12 @@ app.use('/api/messages', messageRoutes);
 
 
 
-dbConnect();
-server.listen(PORT, () => {
-    console.log(`server running on port ${PORT}`);
-})
+
+dbConnect().then(() => {
+    server.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}).catch(err => {
+    console.error("Database connection failed:", err);
+});
+
