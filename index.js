@@ -9,7 +9,7 @@ import cookieParser from "cookie-parser";
 
 env.config();
 const app = express();
-const allowedOrigins = ["http://localhost:5173"]
+const allowedOrigins = ["http://localhost:5173","https://snappy-chatapplication.netlify.app"]
 
 import { createServer } from "http";
 import { Server } from "socket.io";
