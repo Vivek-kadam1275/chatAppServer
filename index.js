@@ -7,7 +7,6 @@ import messageRoutes from "./routes/messageRoutes.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-
 env.config();
 const app = express();
 const allowedOrigins = ["http://localhost:5173"]
@@ -76,8 +75,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/chatApp', chatRoutes);
 app.use('/api/messages', messageRoutes);
 
-
-
+app.get("/",(req,res)=>{
+    res.send("This is home page")
+})
 
 dbConnect().then(() => {
     server.listen(PORT, () => {

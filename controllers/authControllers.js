@@ -89,9 +89,8 @@ export const login = async (req, res) => {
                 const options = {
                     expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
                     httpOnly: true,
-                    secure: true,  // ✅ Required for HTTPS
-                    sameSite: 'none'  // ✅ Required for cross-origin cookies
-
+                    secure: true,  //  Required for HTTPS
+                    sameSite: 'none'  //  Required for cross-origin cookies
                 }
                 // 
                 res.cookie("loginCookie", token, options).status(200).json({
